@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This is a set-up script for running Gatling on a BBC CentOS build.
+cd $(dirname $0)
+
+sh linux-tuning
+sh bash-config
+sh sbt-config
+sh vim-install-config
+sh graphite-install
+sh jvmtop-install
+
+echo "Configure git"
+git config --global alias.st status
+git config --global alias.co checkout
+git config --global color.ui true
+
+echo "NOW REBOOT"

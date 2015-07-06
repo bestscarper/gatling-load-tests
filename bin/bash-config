@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Some Bash"
+cat << EOF > ~/.bashrc
+export PS1="\u@\h \w "
+alias ..="cd .."
+alias gt="cd ~/gatling-load-tests"
+alias cl='clear'
+alias vi='vim'
+alias cf="gt; gpg-agent --use-standard-socket --write-env-file --enable-ssh-support --daemon; gpg-zip -d bin/support.gpg; sudo sh support/conf-setup"
+EOF
