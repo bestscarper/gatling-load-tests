@@ -14,12 +14,12 @@ object Realtime {
     Map("service" -> "bbc_6music")).random
 
   val dateRangeFeeder = Array(
-    Map("dateRange" -> "start_date=2015-06-01T09:00:00Z&end_date=2015-06-01T12:00:00Z"),
-    Map("dateRange" -> "start_date=2015-04-25T02:00:00Z&end_date=2015-04-25T05:00:00Z"),
+    Map("dateRange" -> "start_date=2015-06-01T09:00:00Z&end_date=2015-06-01T11:00:00Z"),
+    Map("dateRange" -> "start_date=2015-04-25T02:00:00Z&end_date=2015-04-25T03:30:00Z"),
     Map("dateRange" -> "start_date=2015-06-02T12:00:00Z&end_date=2015-06-02T15:00:00Z"),
-    Map("dateRange" -> "start_date=2015-06-02T15:00:00Z&end_date=2015-06-02T18:00:00Z"),
+    Map("dateRange" -> "start_date=2015-06-02T15:00:00Z&end_date=2015-06-02T16:45:00Z"),
     Map("dateRange" -> "start_date=2015-06-02T18:00:00Z&end_date=2015-06-02T21:00:00Z"),
-    Map("dateRange" -> "start_date=2015-04-22T03:00:00Z&end_date=2015-04-22T06:00:00Z"),
+    Map("dateRange" -> "start_date=2015-04-19T03:00:00Z&end_date=2015-04-19T04:00:00Z"),
     Map("dateRange" -> "start_date=2015-04-22T04:00:00Z&end_date=2015-04-22T05:00:00Z")).random
 
   val serviceRangeFeeder = Array(
@@ -54,11 +54,11 @@ class Realtime extends Simulation {
 
   setUp(
     tracksByService.inject(
-      rampUsersPerSec(1) to(42) during(10 minutes),
-      constantUsersPerSec(42) during(10 minutes)),
+      rampUsersPerSec(1) to(14) during(10 minutes),
+      constantUsersPerSec(14) during(10 minutes)),
 
     tracksForServices.inject(
-      rampUsersPerSec(1) to(18) during(10 minutes),
-      constantUsersPerSec(18) during(10 minutes))
+      rampUsersPerSec(1) to(6) during(10 minutes),
+      constantUsersPerSec(6) during(10 minutes))
   ).protocols(httpProtocol)
 }
