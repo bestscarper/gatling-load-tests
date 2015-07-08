@@ -1,0 +1,38 @@
+package bbc.amq
+
+import io.gatling.core.Predef._
+import io.gatling.jms.Predef._
+import javax.jms._
+import scala.concurrent.duration._
+import org.apache.activemq.jndi.ActiveMQInitialContextFactory
+
+class AmqBenchmark extends Simulation {
+
+  val jmsConfig = jms
+    .connectionFactoryName("ConnectionFactory")
+    .url("tcp://localhost:61616")
+    .contextFactory(classOf[ActiveMQInitialContextFactory].getName)
+    .listenerCount(1)
+
+    val scn = scenario("JMS DSL test").repeat(0) {
+      exec(
+        jms("req reply testing").reqreply
+          .queue("queueName")
+          .replyQueue("responseQueue")
+          .textMessage("hello from gatling jms dsl")
+          .property("test_header", "test_value")
+          .check(simpleCheck(checkBodyTextCorrect)))
+    }
+
+    setUp(
+      scn.inject(
+        atOnceUsers(10)
+    ).protocols(jmsConfig))
+
+    def checkBodyTextCorrect(m: Message) = {
+      m match {
+        case tm: TextMessage => tm.getText == "HELLO FROM GATLING JMS DSL"
+        case _               => false
+      }
+    }
+}
