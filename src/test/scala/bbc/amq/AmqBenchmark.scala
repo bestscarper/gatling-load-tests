@@ -10,29 +10,29 @@ class AmqBenchmark extends Simulation {
 
   val jmsConfig = jms
     .connectionFactoryName("ConnectionFactory")
-    .url("tcp://localhost:61616")
+    .url("tcp://queue.back.int.local:61003")
     .contextFactory(classOf[ActiveMQInitialContextFactory].getName)
     .listenerCount(1)
 
-    val scn = scenario("JMS DSL test").repeat(0) {
-      exec(
-        jms("req reply testing").reqreply
-          .queue("queueName")
-          .replyQueue("responseQueue")
-          .textMessage("hello from gatling jms dsl")
-          .property("test_header", "test_value")
-          .check(simpleCheck(checkBodyTextCorrect)))
-    }
+  val scn = scenario("JMS DSL test").repeat(1) {
+    exec(
+      jms("req reply testing").reqreply
+        .queue("loadTestQueue")
+        .replyQueue("responseQueue")
+        .textMessage("hello from gatling jms dsl")
+        .property("test_header", "test_value")
+        .check(simpleCheck(checkBodyTextCorrect)))
+  }
 
-    setUp(
-      scn.inject(
-        atOnceUsers(10)
-    ).protocols(jmsConfig))
+  setUp(
+    scn.inject(
+      atOnceUsers(1)
+  ).protocols(jmsConfig))
 
-    def checkBodyTextCorrect(m: Message) = {
-      m match {
-        case tm: TextMessage => tm.getText == "HELLO FROM GATLING JMS DSL"
-        case _               => false
-      }
+  def checkBodyTextCorrect(m: Message) = {
+    m match {
+      case tm: TextMessage => tm.getText == "HELLO FROM GATLING JMS DSL"
+      case _               => false
     }
+  }
 }
