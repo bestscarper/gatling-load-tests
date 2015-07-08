@@ -13,6 +13,7 @@ class AmqBenchmark extends Simulation {
     .url("tcp://queue.back.int.local:61003")
     .contextFactory(classOf[ActiveMQInitialContextFactory].getName)
     .listenerCount(1)
+    .matchByCorrelationID
 
   val scn = scenario("JMS DSL test").repeat(1) {
     exec(
