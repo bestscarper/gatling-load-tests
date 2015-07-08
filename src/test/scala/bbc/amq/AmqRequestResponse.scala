@@ -6,7 +6,7 @@ import javax.jms._
 import scala.concurrent.duration._
 import org.apache.activemq.jndi.ActiveMQInitialContextFactory
 
-class AmqBenchmark extends Simulation {
+class AmqRequestResponse extends Simulation {
 
   val jmsConfig = jms
     .connectionFactoryName("ConnectionFactory")
@@ -18,7 +18,7 @@ class AmqBenchmark extends Simulation {
   val scn = scenario("JMS DSL test").repeat(1) {
     exec(
       jms("req reply testing").reqreply
-        .queue("loadTestQueue")
+        .queue("requestQueue")
         .replyQueue("responseQueue")
         .textMessage("hello from gatling jms dsl")
         .property("test_header", "test_value")
