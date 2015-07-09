@@ -54,11 +54,11 @@ class Realtime extends Simulation {
 
   setUp(
     tracksByService.inject(
-      rampUsersPerSec(1) to(14) during(10 minutes),
-      constantUsersPerSec(14) during(10 minutes)),
+      rampUsersPerSec(1) to(70) during(10 minutes),
+      constantUsersPerSec(70) during(10 minutes)),
 
     tracksForServices.inject(
-      rampUsersPerSec(1) to(6) during(10 minutes),
-      constantUsersPerSec(6) during(10 minutes))
+      rampUsersPerSec(1) to(30) during(10 minutes),
+      constantUsersPerSec(30) during(10 minutes))
   ).protocols(httpProtocol)
 }
