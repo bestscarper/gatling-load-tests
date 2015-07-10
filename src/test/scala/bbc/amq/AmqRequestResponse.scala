@@ -18,8 +18,8 @@ class AmqRequestResponse extends Simulation {
   val scn = scenario("AmqBenchmark").repeat(1) {
     exec(
       jms("request reply").reqreply
-        .destination(queue("loadTestQueue"))
-        .replyDestination(queue("loadTestQueue"))
+        .queue("loadTestQueue")
+        .replyQueue("loadTestQueue")
         .textMessage("hello from gatling jms dsl")
         .check(simpleCheck(checkBodyTextCorrect)))
   }
