@@ -8,7 +8,7 @@ by the BBC Digital load-test team.
 
 ## Getting Started
 Clone the [Gatling SBT plugin demo](https://github.com/gatling/gatling-sbt-plugin-demo) to begin running your own simulations. 
-## Real-time metrics
+## Real-time metrics (Optional)
 ### gatling.conf
 ```
 data {
@@ -33,7 +33,7 @@ docker run -d \
            -e PRE_CREATE_DB="gatling;grafana" --name influxdb davey/influxdb:latest
 ```
 
-## Gatling Jenkins 
+## Gatling Jenkins (Optional)
 ```bash 
 docker run -d -p 8080:8080 --name gatling-jenkins aidylewis/gatling-jenkins
 ```
