@@ -10,18 +10,17 @@ class AmqRequestResponse extends Simulation {
 
   val jmsConfig = jms
     .connectionFactoryName("ConnectionFactory")
-    .url("tcp://queue.back.int.local:61003")
+    .url("tcp://192.168.59.103:61616")
     .contextFactory(classOf[ActiveMQInitialContextFactory].getName)
     .listenerCount(1)
     .matchByCorrelationID
 
-  val scn = scenario("JMS DSL test").repeat(1) {
+  val scn = scenario("AmqBenchmark").repeat(1) {
     exec(
-      jms("req reply testing").reqreply
-        .queue("requestQueue")
-        .replyQueue("responseQueue")
+      jms("request reply").reqreply
+        .destination(queue("loadTestQueue"))
+        .replyDestination(queue("loadTestQueue"))
         .textMessage("hello from gatling jms dsl")
-        .property("test_header", "test_value")
         .check(simpleCheck(checkBodyTextCorrect)))
   }
 
@@ -32,7 +31,7 @@ class AmqRequestResponse extends Simulation {
 
   def checkBodyTextCorrect(m: Message) = {
     m match {
-      case tm: TextMessage => tm.getText == "HELLO FROM GATLING JMS DSL"
+      case tm: TextMessage => tm.getText == "hello from gatling jms dsl"
       case _               => false
     }
   }
