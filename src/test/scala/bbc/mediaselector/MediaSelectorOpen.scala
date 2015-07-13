@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
-class MediaSelector2379 extends Simulation {
+class MediaSelectorOpen extends Simulation {
 
   val httpProtocol = http
   // https://api.stage.bbc.co.uk/mediaselector/kipps?ip=194.159.80.39
