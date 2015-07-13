@@ -11,7 +11,7 @@ class MediaSelectorOpen extends Simulation {
   // https://api.stage.bbc.co.uk/mediaselector/kipps?ip=194.159.80.39
     .header("X-IP-Address", "")
 
-  val open = csv("media-selector/open.csv").circular
+  val open = csv("mediaselector/open.csv").circular
 
   val countStageServers = 4
   val countProdServers = 16
