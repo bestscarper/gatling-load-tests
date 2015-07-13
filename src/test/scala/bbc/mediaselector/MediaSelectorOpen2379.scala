@@ -23,11 +23,13 @@ class MediaSelector2379 extends Simulation {
   val scn = scenario("media-selector")
     .feed(open)
     .exec(http("open")
-    .get("http://open.stage.cwwtf.bbc.co.uk${openUrl}")
-    .check(status.is(200)))
+        .get("http://open.stage.cwwtf.bbc.co.uk${openUrl}")
+        .check(status.is(200))
+        // .header("X-Cache").regex("(HIT|MISS)").findAll.saveAs("msCacheHit")
+        )
 
   setUp(scn.inject(
-      rampUsersPerSec(11) to(stagePeakRate)                 during(10 minutes) randomized,
+      rampUsersPerSec(1) to(stagePeakRate)                  during(10 minutes) randomized,
       constantUsersPerSec(stagePeakRate)                    during(20 minutes) randomized,
       rampUsersPerSec(stagePeakRate) to(stageFailureRate)   during(10 minutes) randomized,
       constantUsersPerSec(stageFailureRate)                 during(20 minutes) randomized,
