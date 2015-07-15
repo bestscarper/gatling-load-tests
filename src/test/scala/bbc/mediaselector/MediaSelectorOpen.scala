@@ -23,7 +23,7 @@ class MediaSelectorOpen extends Simulation {
   val scn = scenario("media-selector")
     .feed(open)
     .exec(http("open")
-      .get("http://open.stage.cwwtf.bbc.co.uk${openUrl}")
+      .get("http://open.stage.bbc.co.uk${openUrl}")
       .check(status.is(200)))
 
   setUp(scn.inject(
