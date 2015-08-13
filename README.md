@@ -2,6 +2,7 @@ gatling-load-tests
 ==================
 
 (ash - test write)
+(ash - test write2)
 
 ## Description
 
