@@ -1,6 +1,8 @@
 gatling-load-tests 
 ==================
 
+(ash - test write)
+
 ## Description
 
 This project contains [Gatling](http://gatling.io/#/) simulations used 
